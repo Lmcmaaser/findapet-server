@@ -3,5 +3,5 @@ CREATE TABLE pets (
     name TEXT NOT NULL,
     age INTEGER,
     date_arrived TIMESTAMPTZ DEFAULT now() NOT NULL,
-    date_adopted TIMESTAMPTZ DEFAULT now(),
+    date_adopted TIMESTAMPTZ DEFAULT now()
 );

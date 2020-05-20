@@ -9,7 +9,7 @@ const errorHandler = require('./error-handler')
 const petsRouter = require('./pets/pets-route')
 const app = express()
 
-app.use(morgan((NODE_ENV === 'production') ? 'tiny' : 'common', {
+app.use(morgan((NODE_ENV === 'development') ? 'tiny' : 'common', {
   skip: () => NODE_ENV === 'test'
 }))
 

@@ -1,8 +1,8 @@
 const expect = require('chai').expect;
 const knex = require('knex')
 const app = require('../src/app')
-const fixtures = require('./pets.fixtures')
-const { makePetsArray } = require('./pets.fixtures')
+// const fixtures = require('./pets.fixtures')
+const { makePetsArray, makeMaliciousPet } = require('./pets.fixtures')
 const supertest = require('supertest');
 
 describe('Pets Endpoints', function() {
@@ -32,7 +32,7 @@ describe('Pets Endpoints', function() {
       })
     })
 
-    context('Given there are notes in the database', () => {
+    context('Given there are pets in the database', () => {
       const testPets = makePetsArray()
 
       beforeEach('insert pets', () => {
@@ -98,7 +98,7 @@ describe('Pets Endpoints', function() {
     it(`responds with 401 Unauthorized for POST /api/pets`, () => {
       return supertest(app)
         .post('/api/pets')
-        .send({ pet_type: 'test-type', name: 'test-name', sex: 'test-sex', age: '1', adopted: 'yes' })
+        .send({  name: 'test-name', age: 1, sex: 'test-sex', adopted: 'yes', pet_type: 'test-type' })
         .expect(401, { error: 'Unauthorized request' })
     })
 
@@ -124,13 +124,29 @@ describe('Pets Endpoints', function() {
     })
   })
 
-  describe('GET /api/notes', () => {
+  describe('GET /api/pets', () => {
     context(`Given no pets`, () => {
       it(`responds with 200 and an empty list`, () => {
         return supertest(app)
           .get('/api/pets')
           .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
           .expect(200, [])
+      })
+    })
+
+    context('Given there are pets in the database', () => {
+      const testPets = makePetsArray()
+
+      beforeEach('insert pets', () => {
+        return db
+          .into('pets')
+          .insert(testPets)
+      })
+
+      it('responds with 200 and all of the pets', () => {
+        return supertest(app)
+          .get('/api/pets')
+          .expect(200, testPets)
       })
     })
 

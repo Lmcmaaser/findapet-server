@@ -4,14 +4,15 @@ const xss = require('xss')
 const jsonParser = express.json()
 const logger = require('../logger')
 const PetService = require('./pets-service')
+const petsRouter = express.Router()
 
 
 //by route('/') and ('/:id'), all, get, post, delete, and patch
 
-const serializePets = pet => ({
+const serializePet = pet => ({
   id: pet.id,
   name: xss(pet.name),
-  pet_type: pet.pet_type
+  pet_type: pet.pet_type,
   sex: pet.sex,
   age: pet.age,
   adopted: pet.adopted
@@ -23,7 +24,7 @@ petsRouter
     const knexInstance = req.app.get('db')
     PetService.getAllPets(knexInstance)
       .then(pets => {
-        res.json(pets.map(pet => serializePets(pet)))
+        res.json(pets.map(pet => serializePet(pet)))
       })
       .catch(next)
   })
@@ -54,7 +55,7 @@ petsRouter
         res
           .status(201)
           .location(path.posix.join(req.originalUrl, `/${pet.id}`))
-          .json(serializePets(pet))
+          .json(serializePet(pet))
       })
       .catch(next)
   })
@@ -79,7 +80,7 @@ petsRouter
       .catch(next)
   })
   .get((req, res, next) => {
-    res.json(serializePets(res.pet))
+    res.json(serializePet(res.pet))
   })
   .delete((req, res, next) => {
     PetService.deletePet(

@@ -6,7 +6,7 @@ const helmet = require('helmet')
 const { NODE_ENV } = require('./config')
 const validateBearerToken = require('./validate-bearer-token')
 const errorHandler = require('./error-handler')
-const petsRouter = require('./pets/pets-route')
+const petsRouter = require('./pets/pets-router')
 const app = express()
 
 app.use(morgan((NODE_ENV === 'development') ? 'tiny' : 'common', {
@@ -15,7 +15,6 @@ app.use(morgan((NODE_ENV === 'development') ? 'tiny' : 'common', {
 
 app.use(cors())
 app.use(helmet())
-app.use(morgan(morganOption))
 app.use(validateBearerToken)
 app.use('/api/pets', petsRouter)
 

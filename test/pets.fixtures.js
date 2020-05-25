@@ -9,17 +9,17 @@ function makePetsArray() {
       'pet_type': 'dog'
     },
     {
-      'id': 4,
+      'id': 2,
       'name': 'Princess',
-      'age': 2,
+      'age': 4,
       'sex': 'female',
       'adopted': 'yes',
       'pet_type': 'cat'
     },
     {
-      'id': 7,
+      'id': 3,
       'name': 'Sunny',
-      'age': 7,
+      'age': 5,
       'sex': 'male',
       'adopted': 'yes',
       'pet_type': 'bird'
@@ -30,7 +30,7 @@ function makePetsArray() {
 function makeMaliciousPet() {
   const maliciousPet = {
     'id': 1,
-    'name': 'Naughty <script>alert("xss");</script>',
+    'name': 'Naughty naughty very naughty <script>alert("xss");</script>',
     'age': 4,
     'sex': 'female',
     'adopted': 'no',
@@ -38,11 +38,7 @@ function makeMaliciousPet() {
   }
   const expectedPet = {
     ...maliciousPet,
-    'name': 'Naughty naughty very naughty &lt;script&gt;alert(\'xss\');&lt;/script&gt;',
-    'age': 4,
-    'sex': 'female',
-    'adopted': 'no',
-    'pet_type': 'bird'
+    'name': 'Naughty naughty very naughty <script>alert("xss");</script>'
   }
   return {
     maliciousPet,

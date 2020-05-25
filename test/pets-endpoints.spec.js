@@ -24,7 +24,7 @@ describe('Pets Endpoints', function() {
   afterEach('cleanup', () => db('pets').truncate())
 
   //GET
-  describe(`GET /pets`, () => {
+  describe(`GET /api/pets`, () => {
     context(`Given no pets`, () => {
       it(`responds with 200 and an empty list`, () => {
         return supertest(app)
@@ -48,6 +48,24 @@ describe('Pets Endpoints', function() {
           .expect(200, testPets)
       })
     })
+
+    context(`Given an XSS attack pet`, () => {
+      const { maliciousPet, expectedPet } = fixtures.makeMaliciousPet()
+      beforeEach('insert malicious pet', () => {
+        return db
+          .into('pets')
+          .insert([maliciousPet])
+      })
+      it('removes XSS attack content', () => {
+        return supertest(app)
+          .get(`/api/pets`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(200)
+          .expect(res => {
+            expect(res.body[0].name).to.eql(expectedPet.name)
+          })
+      })
+    })
   })
 
   // GET by id
@@ -63,7 +81,7 @@ describe('Pets Endpoints', function() {
     })
 
     context('Given there are pets in the database', () => {
-      const testPets = makePetsArray()
+      const testPets = fixtures.makePetsArray()
       beforeEach('insert pets', () => {
         return db
           .into('pets')
@@ -76,6 +94,24 @@ describe('Pets Endpoints', function() {
           .get(`/api/pets/${petId}`)
           .set('Authorization', token)
           .expect(200, expectedPet)
+      })
+    })
+
+    context(`Given an XSS attack pet`, () => {
+      const { maliciousPet, expectedPet } = fixtures.makeMaliciousPet()
+      beforeEach('insert malicious pet', () => {
+        return db
+          .into('pets')
+          .insert([maliciousPet])
+      })
+      it('removes XSS attack content', () => {
+        return supertest(app)
+          .get(`/api/pets/${maliciousPet.id}`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(200)
+          .expect(res => {
+            expect(res.body.name).to.eql(expectedPet.name)
+          })
       })
     })
   })

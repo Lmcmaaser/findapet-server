@@ -115,4 +115,16 @@ describe('Pets Endpoints', function() {
       })
     })
   })
+
+  //DELETE by id
+  describe('DELETE /api/pets/:id', () => {
+    context(`Given no pets`, () => {
+      it(`responds 404 when the pet does not exist`, () => {
+        return supertest(app)
+          .delete(`/api/pets/123`)
+          .set('Authorization', `Bearer ${process.env.API_TOKEN}`)
+          .expect(404, {error: { message: `Pet does not exist.` }})
+      })
+    })
+  })
 })

@@ -66,3 +66,8 @@
 {"message":"Unauthorized request to path: /api/pets/2","level":"error"}
 {"message":"Unauthorized request to path: /api/pets/2","level":"error"}
 {"message":"Unauthorized request to path: /api/pets/2","level":"error"}
+{"message":"Unauthorized request to path: /api/pets/","level":"error"}
+{"message":"Unauthorized request to path: /api/pets/","level":"error"}
+{"message":"Unauthorized request to path: /pets/","level":"error"}
+{"message":"Unauthorized request to path: /pets/","level":"error"}
+{"message":"Unauthorized request to path: /api/pets","level":"error"}

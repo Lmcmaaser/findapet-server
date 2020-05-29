@@ -6,9 +6,7 @@ const logger = require('../logger')
 const PetService = require('./pets-service')
 const petsRouter = express.Router()
 
-
 //by route('/') and ('/:id'), all, get, post, delete, and patch
-
 const serializePet = pet => ({
   id: pet.id,
   name: xss(pet.name),
@@ -93,14 +91,14 @@ petsRouter
       .catch(next)
   })
   .patch(jsonParser, (req, res, next) => {
-    const { id } = req.body //unsure if this is correct
+    const { name, age, adopted } = req.body //unsure if this is correct
     const petToUpdate = { name, age, adopted }
 
     const numberOfValues = Object.values(petToUpdate).filter(Boolean).length
     if (numberOfValues === 0)
       return res.status(400).json({
         error: {
-          message: `Request body must contain 'id'.`
+          message: `Request body must contain 'name', 'age', or 'adoption status'.`
         }
       })
 

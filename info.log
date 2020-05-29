@@ -71,3 +71,7 @@
 {"message":"Unauthorized request to path: /pets/","level":"error"}
 {"message":"Unauthorized request to path: /pets/","level":"error"}
 {"message":"Unauthorized request to path: /api/pets","level":"error"}
+{"message":"select * from \"pets\" where \"id\" = $1 limit $2 - invalid input syntax for type integer: \"pets\"","level":"error"}
+{"message":"select * from \"pets\" where \"id\" = $1 limit $2 - invalid input syntax for type integer: \"pets\"","level":"error"}
+{"message":"select * from \"pets\" where \"id\" = $1 limit $2 - invalid input syntax for type integer: \"pets\"","level":"error"}
+{"message":"select * from \"pets\" where \"id\" = $1 limit $2 - invalid input syntax for type integer: \"pets\"","level":"error"}

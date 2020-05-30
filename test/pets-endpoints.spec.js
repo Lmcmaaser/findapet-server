@@ -72,9 +72,9 @@ describe('Pets Endpoints', function() {
   describe(`GET /api/pets/:id`, () => {
     context(`Given no pets`, () => {
       it(`responds with 404`, () => {
-        const petId = 1
+        const id = 1
         return supertest(app)
-          .get(`/api/pets/${petId}`)
+          .get(`/api/pets/${id}`)
           .set('Authorization', token)
           .expect(404, { error: { message: `Pet does not exist.` } })
         })
@@ -88,10 +88,10 @@ describe('Pets Endpoints', function() {
           .insert(testPets)
       })
       it('responds with 200 and the specified pet', () => {
-        const petId = 2
-        const expectedPet = testPets[petId - 1]
+        const id = 2
+        const expectedPet = testPets[id - 1]
         return supertest(app)
-          .get(`/api/pets/${petId}`)
+          .get(`/api/pets/${id}`)
           .set('Authorization', token)
           .expect(200, expectedPet)
       })

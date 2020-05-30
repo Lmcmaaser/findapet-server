@@ -1,19 +1,19 @@
 const path = require('path')
 const express = require('express')
 const xss = require('xss')
-const jsonParser = express.json()
 const logger = require('../logger')
 const PetService = require('./pets-service')
+const jsonParser = express.json()
 const petsRouter = express.Router()
 
 //by route('/') and ('/:id'), all, get, post, delete, and patch
 const serializePet = pet => ({
   id: pet.id,
   name: xss(pet.name),
-  pet_type: pet.pet_type,
-  sex: pet.sex,
   age: pet.age,
-  adopted: pet.adopted
+  sex: pet.sex,
+  adopted: pet.adopted,
+  pet_type: pet.pet_type
 })
 
 petsRouter
@@ -27,8 +27,8 @@ petsRouter
       .catch(next)
   })
   .post(jsonParser, (req, res, next) => {
-    const { name, pet_type, sex,age,adopted } = req.body
-    const newPet = { name, pet_type, sex, age, adopted }
+    const { name, age, sex, adopted, pet_type } = req.body
+    const newPet = { name, age, sex, adopted, pet_type }
 
     for (const [key, value] of Object.entries(newPet)) {
       if (value == null) {
@@ -62,12 +62,11 @@ petsRouter
 petsRouter
   .route('/:id')
   .all((req, res, next) => {
-    PetService.getById(
-      req.app.get('db'),
-      req.params.id
-    )
+    const { id } = req.params
+    PetService.getById(req.app.get('db'), id)
       .then(pet => {
         if (!pet) {
+          logger.error(`Pet with id ${id} not found.`)
           return res.status(404).json({
             error: { message: `Pet does not exist.` }
           })
@@ -81,27 +80,28 @@ petsRouter
     res.json(serializePet(res.pet))
   })
   .delete((req, res, next) => {
+    const { id } = req.params
     PetService.deletePet(
       req.app.get('db'),
-      req.params.id
+      id
     )
       .then(numRowsAffected => {
+        logger.info(`Pet with id ${id} deleted.`)
         res.status(204).end()
       })
       .catch(next)
   })
   .patch(jsonParser, (req, res, next) => {
-    const { name, age, adopted } = req.body //unsure if this is correct
+    const { name, age, adopted } = req.body;
     const petToUpdate = { name, age, adopted }
 
     const numberOfValues = Object.values(petToUpdate).filter(Boolean).length
     if (numberOfValues === 0)
       return res.status(400).json({
         error: {
-          message: `Request body must contain 'name', 'age', or 'adoption status'.`
+          message: `Request body must contain either 'name', 'age', or 'adopted'.`
         }
       })
-
     PetService.updatePet(
       req.app.get('db'),
       req.params.id,

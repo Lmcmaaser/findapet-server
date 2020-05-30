@@ -62,11 +62,12 @@ petsRouter
 petsRouter
   .route('/:id')
   .all((req, res, next) => {
-    const { id } = req.params
-    PetService.getById(req.app.get('db'), id)
+    PetService.getById(
+      req.app.get('db'),
+      req.params.id
+    )
       .then(pet => {
         if (!pet) {
-          logger.error(`Pet with id ${id} not found.`)
           return res.status(404).json({
             error: { message: `Pet does not exist.` }
           })
@@ -80,10 +81,9 @@ petsRouter
     res.json(serializePet(res.pet))
   })
   .delete((req, res, next) => {
-    const { id } = req.params
     PetService.deletePet(
       req.app.get('db'),
-      id
+      req.params.id
     )
       .then(numRowsAffected => {
         logger.info(`Pet with id ${id} deleted.`)

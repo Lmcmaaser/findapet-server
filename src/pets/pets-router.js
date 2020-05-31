@@ -86,7 +86,7 @@ petsRouter
       req.params.id
     )
       .then(numRowsAffected => {
-        logger.info(`Pet with id ${id} deleted.`)
+        logger.info(`Pet with id ${req.params.id} deleted.`)
         res.status(204).end()
       })
       .catch(next)

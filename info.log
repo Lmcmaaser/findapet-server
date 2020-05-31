@@ -83,3 +83,10 @@
 {"message":"select * from \"pets\" where \"id\" = $1 limit $2 - invalid input syntax for type integer: \"undefined\"","level":"error"}
 {"message":"select * from \"pets\" where \"id\" = $1 limit $2 - invalid input syntax for type integer: \"undefined\"","level":"error"}
 {"message":"select * from \"pets\" where \"id\" = $1 limit $2 - invalid input syntax for type integer: \"undefined\"","level":"error"}
+{"message":"select * from \"pets\" where \"id\" = $1 limit $2 - invalid input syntax for type integer: \"undefined\"","level":"error"}
+{"message":"id is not defined","level":"error"}
+{"message":"select * from \"pets\" where \"id\" = $1 limit $2 - invalid input syntax for type integer: \"[object Object]\"","level":"error"}
+{"message":"id is not defined","level":"error"}
+{"message":"id is not defined","level":"error"}
+{"message":"Pet with id 6 deleted.","level":"info"}
+{"message":"Pet with id 8 deleted.","level":"info"}

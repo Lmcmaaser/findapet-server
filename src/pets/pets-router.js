@@ -92,22 +92,23 @@ petsRouter
       .catch(next)
   })
   .patch(jsonParser, (req, res, next) => {
-    const { name, age, adopted } = req.body;
-    const petToUpdate = { name, age, adopted }
-
+    const { name, age, sex, adopted, pet_type } = req.body;
+    const petToUpdate = { name, age, sex, adopted, pet_type }
     const numberOfValues = Object.values(petToUpdate).filter(Boolean).length
     if (numberOfValues === 0)
       return res.status(400).json({
         error: {
-          message: `Request body must contain either 'name', 'age', or 'adopted'.`
+          message: `Request body must contain either 'name', 'age', 'sex', 'adopted', or 'pet_type'.`
         }
       })
+
     PetService.updatePet(
       req.app.get('db'),
       req.params.id,
       petToUpdate
     )
       .then(numRowsAffected => {
+        logger.info(`Pet with id ${req.params.id} updated.`)
         res.status(204).end()
       })
       .catch(next)

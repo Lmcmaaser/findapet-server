@@ -90,3 +90,4 @@
 {"message":"id is not defined","level":"error"}
 {"message":"Pet with id 6 deleted.","level":"info"}
 {"message":"Pet with id 8 deleted.","level":"info"}
+{"message":"Empty .update() call detected! Update data does not contain any values to update. This will result in a faulty query. Table: pets. Columns: name,age,adopted.","level":"error"}

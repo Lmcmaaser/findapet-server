@@ -91,3 +91,11 @@
 {"message":"Pet with id 6 deleted.","level":"info"}
 {"message":"Pet with id 8 deleted.","level":"info"}
 {"message":"Empty .update() call detected! Update data does not contain any values to update. This will result in a faulty query. Table: pets. Columns: name,age,adopted.","level":"error"}
+{"message":"Unexpected token , in JSON at position 104","level":"error"}
+{"message":"Pet with id 10 updated.","level":"info"}
+{"message":"Pet with id 10 updated.","level":"info"}
+{"message":"Pet with id 7 updated.","level":"info"}
+{"message":"Pet with id 9 deleted.","level":"info"}
+{"message":"Pet with id 11 updated.","level":"info"}
+{"message":"Pet with id 12 deleted.","level":"info"}
+{"message":"Pet with id 13 updated.","level":"info"}

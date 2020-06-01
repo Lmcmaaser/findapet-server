@@ -9,13 +9,16 @@ const errorHandler = require('./error-handler')
 const petsRouter = require('./pets/pets-router')
 const app = express()
 
-app.use(morgan((NODE_ENV === 'development') ? 'tiny' : 'common', {
-  skip: () => NODE_ENV === 'test'
-}))
+const morganSetting = process.env.NODE_ENV === 'production' ? 'tiny' : 'common'
+
+// app.use(morgan((NODE_ENV === 'development') ? 'tiny' : 'common', {
+//   skip: () => NODE_ENV === 'test'
+// }))
 
 app.use(cors())
 app.use(helmet())
 app.use(validateBearerToken)
+app.use(morgan(morganSetting))
 app.use('/api/pets', petsRouter)
 
 

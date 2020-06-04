@@ -1,26 +1,11 @@
-# Express Boilerplate!
+FindAPet
 
-This is a boilerplate project used for starting new projects!
+Link to live app: https://findapet-client.now.sh/
 
-## Set up
+Description: This repository contains the code for the sever for the FindAPet API. It uses node express to connect to a postgres database. It contains endpoints for GET and POST requests (route '/'), as well as ALL, GET, DELETE, and PATCH (route '/:id').
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+The frontend of the FindAPet can be found at:https://github.com/Lmcmaaser/findapet-client and contains screenshots of the app.
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+FindAPet will help you manage all your shelter pets' information in one easy to use and convenient location. As a user, you can add, search for, and update any pet in the database.
 
-## Scripts
-
-Start the application `npm start`
-
-Start nodemon for the application `npm run dev`
-
-Run the tests `npm test`
-
-## Deploying
-
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+Technology used: This app uses Javascript, React, HTML/JSX, CSS, Node, Express, and PostgreSQL. It is deployed on Vercel and Heroku.

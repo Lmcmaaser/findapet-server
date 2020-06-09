@@ -43,7 +43,6 @@ petsRouter
     newPet.sex = sex;
     newPet.age = age;
     newPet.adopted = adopted;
-    console.log(newPet);
 
     PetService.insertPet(
       req.app.get('db'),

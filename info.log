@@ -99,3 +99,6 @@
 {"message":"Pet with id 11 updated.","level":"info"}
 {"message":"Pet with id 12 deleted.","level":"info"}
 {"message":"Pet with id 13 updated.","level":"info"}
+{"message":"Pet with id 16 deleted.","level":"info"}
+{"message":"Unexpected token , in JSON at position 128","level":"error"}
+{"message":"Pet with id 10 updated.","level":"info"}
